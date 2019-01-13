@@ -23,6 +23,7 @@ pipeline {
               sh 'E:\\2CSil\\OUTILS\\sonar-scanner-cli-3.2.0.1227-windows\\sonar-scanner-3.2.0.1227-windows\\bin\\sonar-scanner'
             }
 
+            waitForQualityGate true
           }
         }
         stage('Test reporting') {
