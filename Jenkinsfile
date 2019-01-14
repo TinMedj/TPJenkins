@@ -49,6 +49,11 @@ pipeline {
       }
     }
     stage('Slack Notification') {
+      when{
+            NOT{
+              changeRequest target : 'master'
+            }
+          }
       steps {
         slackSend(attachments: 'Deloyment suceffull', message: 'success in deployment ')
       }
