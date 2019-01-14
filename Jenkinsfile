@@ -2,6 +2,11 @@ pipeline {
   agent any
   stages {
     stage('build') {
+      post{
+        failure{
+          mail(subject: 'Jenkins', body: 'Build Succefull', from: 'ft_medjkoune@esi.dz', to: 'ft_medjkoune@esi.dz')
+        }
+      }
       steps {
         sh 'gradle build'
         sh 'gradle jar'
@@ -34,6 +39,11 @@ pipeline {
       }
     }
     stage('Deployment') {
+      when{
+            NOT{
+              changeRequest target : 'master'
+            }
+          }
       steps {
         sh 'gradle uploadArchives'
       }
